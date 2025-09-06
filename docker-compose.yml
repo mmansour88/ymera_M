@@ -1,0 +1,24 @@
+
+version: '3.9'
+services:
+  postgres:
+    image: ankane/pgvector:latest
+    environment:
+      POSTGRES_DB: ymera
+      POSTGRES_USER: ymera
+      POSTGRES_PASSWORD: ymera
+    ports: ["5432:5432"]
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg2://ymera:ymera@postgres:5432/ymera
+      REDIS_URL: redis://redis:6379/0
+    depends_on: [postgres, redis]
+    ports: ["8000:8000"]
+  frontend:
+    build: ./frontend
+    ports: ["5173:5173"]
+    depends_on: [api]
