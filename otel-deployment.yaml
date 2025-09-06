@@ -1,0 +1,14 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: ymera-otel }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: ymera-otel } }
+  template:
+    metadata: { labels: { app: ymera-otel } }
+    spec:
+      containers:
+        - name: otel
+          image: ymera/otel:latest
+          ports: [{ containerPort: 80 }]

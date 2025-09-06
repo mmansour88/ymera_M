@@ -1,0 +1,14 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: ymera-redis }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: ymera-redis } }
+  template:
+    metadata: { labels: { app: ymera-redis } }
+    spec:
+      containers:
+        - name: redis
+          image: ymera/redis:latest
+          ports: [{ containerPort: 80 }]

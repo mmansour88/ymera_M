@@ -1,0 +1,14 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: ymera-postgres }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: ymera-postgres } }
+  template:
+    metadata: { labels: { app: ymera-postgres } }
+    spec:
+      containers:
+        - name: postgres
+          image: ymera/postgres:latest
+          ports: [{ containerPort: 80 }]

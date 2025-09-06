@@ -1,0 +1,9 @@
+
+FROM python:3.11-slim
+WORKDIR /app
+COPY backend /app/backend
+COPY alembic /app/alembic
+COPY alembic.ini /app/alembic.ini
+RUN pip install --no-cache-dir fastapi uvicorn[standard] pydantic psycopg2-binary sqlalchemy alembic redis opentelemetry-sdk opentelemetry-instrumentation-fastapi opentelemetry-instrumentation-httpx opentelemetry-instrumentation-sqlalchemy
+ENV PYTHONPATH=/app
+CMD alembic upgrade head && uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
