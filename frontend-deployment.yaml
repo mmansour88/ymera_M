@@ -1,0 +1,14 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: ymera-frontend }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: ymera-frontend } }
+  template:
+    metadata: { labels: { app: ymera-frontend } }
+    spec:
+      containers:
+        - name: frontend
+          image: {{ .Values.image.frontend }}
+          ports: [{containerPort: 5173}]

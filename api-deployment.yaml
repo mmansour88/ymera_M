@@ -1,0 +1,17 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: ymera-api }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: ymera-api } }
+  template:
+    metadata: { labels: { app: ymera-api } }
+    spec:
+      containers:
+        - name: api
+          image: {{ .Values.image.api }}
+          ports: [{containerPort: 8000}]
+          env:
+            - {name: DATABASE_URL, value: "postgresql+psycopg2://{{ .Values.postgres.user }}:{{ .Values.postgres.password }}@{{ .Values.postgres.host }}/{{ .Values.postgres.db }}"}
+            - {name: REDIS_URL, value: "redis://{{ .Values.redis.host }}/{{ .Values.redis.db }}"}

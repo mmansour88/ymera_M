@@ -1,0 +1,13 @@
+image:
+  api: ymera/api:latest
+  frontend: ymera/frontend:latest
+postgres:
+  host: postgres
+  user: ymera
+  password: ymera
+  db: ymera
+redis:
+  host: redis
+  db: 0
+service:
+  type: ClusterIP

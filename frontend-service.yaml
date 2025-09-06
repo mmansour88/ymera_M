@@ -1,0 +1,10 @@
+
+apiVersion: v1
+kind: Service
+metadata: { name: ymera-frontend }
+spec:
+  type: {{ .Values.service.type }}
+  selector: { app: ymera-frontend }
+  ports:
+    - port: 80
+      targetPort: 5173
